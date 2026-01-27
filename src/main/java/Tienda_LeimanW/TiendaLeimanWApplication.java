@@ -8,6 +8,7 @@ public class TiendaLeimanWApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TiendaLeimanWApplication.class, args);
+        
 	}
 
 }
