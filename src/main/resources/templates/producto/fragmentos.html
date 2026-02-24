@@ -3,8 +3,6 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
-    <!-- OJO: esto es un archivo de fragmentos, no necesitas head real,
-         pero si lo dejas, que apunte a general/fragmentos -->
     <head th:replace="~{general/fragmentos :: head}"/>
 
     <body>
@@ -41,10 +39,10 @@
 
                             <div class="modal-body">
 
-                                <!-- ✅ Select de categorías (usa idCategoria) -->
                                 <div class="mb-3">
                                     <label>[[#{producto.categoria}]]</label>
-                                    <select class="form-select" th:field="*{idCategoria}" required>
+                                    <!-- ✅ COMO EN PRESENTACIÓN -->
+                                    <select class="form-select" th:field="*{categoria.idCategoria}" required>
                                         <option value="" disabled selected>-- Seleccione --</option>
                                         <option th:each="c : ${categorias}" th:value="${c.idCategoria}">
                                             [[${c.descripcion}]]
@@ -141,8 +139,9 @@
                                             </td>
                                             <td><img th:src="@{${p.rutaImagen}}" alt="noData" height="75"/></td>
 
-                                            <!-- ✅ Como no hay p.categoria, mostramos idCategoria -->
-                                            <td>[[${p.idCategoria}]]</td>
+                                            <!-- ✅ AQUÍ ESTABA EL ERROR -->
+                                            <!-- Antes: <td>[[${p.idCategoria}]]</td> -->
+                                            <td>[[${p.categoria.descripcion}]]</td>
 
                                             <td th:text="${p.activo} ? 'Activa':'Inactiva'"></td>
 
@@ -223,7 +222,8 @@
 
                                 <div class="mb-3">
                                     <label>[[#{producto.categoria}]]</label>
-                                    <select class="form-select" th:field="*{idCategoria}" required>
+                                    <!-- ✅ COMO EN PRESENTACIÓN -->
+                                    <select class="form-select" th:field="*{categoria.idCategoria}" required>
                                         <option th:each="c : ${categorias}" th:value="${c.idCategoria}">
                                             [[${c.descripcion}]]
                                         </option>

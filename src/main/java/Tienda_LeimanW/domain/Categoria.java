@@ -7,6 +7,8 @@ package Tienda_LeimanW.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
+import jakarta.persistence.OneToMany;
+import java.util.List;
 import lombok.Data;
 
 @Data
@@ -31,6 +33,9 @@ public class Categoria implements Serializable {
     private String rutaImagen;
     
     private boolean activo;
+    
+    @OneToMany (mappedBy = "categoria")
+    private List<Producto> productos;
             
 }
             
