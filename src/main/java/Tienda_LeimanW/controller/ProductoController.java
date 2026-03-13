@@ -4,6 +4,7 @@
  */
 package Tienda_LeimanW.controller;
 
+import Tienda_LeimanW.domain.Categoria;
 import Tienda_LeimanW.domain.Producto;
 import Tienda_LeimanW.service.CategoriaService;
 import Tienda_LeimanW.service.ProductoService;
@@ -38,30 +39,27 @@ public class ProductoController {
 
     @GetMapping("/listado")
     public String listado(Model model) {
-        var productos = productoService.getProductos(false);
-        model.addAttribute("productos", productos);
-        model.addAttribute("totalProductos", productos.size());
-
-        var categorias = categoriaService.getCategorias(true);
-        model.addAttribute("categorias", categorias);
-
-
-        model.addAttribute("producto", new Producto());
-
+        cargarListado(model, new Producto());
         return "/producto/listado";
     }
 
     @PostMapping("/guardar")
     public String guardar(@Valid Producto producto,
                           Errors errors,
-                          @RequestParam MultipartFile imagenFile,
+                          @RequestParam(required = false) MultipartFile imagenFile,
                           RedirectAttributes redirectAttributes,
                           Model model) {
 
+        // ✅ Si la categoría viene null, evita que se rompa el binding
+        if (producto.getCategoria() == null) {
+            producto.setCategoria(new Categoria());
+        }
+
+        // ✅ Si hay errores: REGRESAR al LISTADO (NO a modifica)
         if (errors.hasErrors()) {
-            var categorias = categoriaService.getCategorias(true);
-            model.addAttribute("categorias", categorias);
-            return "/producto/modifica";
+            cargarListado(model, producto);
+            model.addAttribute("errorFormulario", "Revisa los campos. Hay datos faltantes o inválidos.");
+            return "/producto/listado";
         }
 
         productoService.save(producto, imagenFile);
@@ -111,11 +109,29 @@ public class ProductoController {
             return "redirect:/producto/listado";
         }
 
-        model.addAttribute("producto", productoOpt.get());
+        var producto = productoOpt.get();
+        if (producto.getCategoria() == null) {
+            producto.setCategoria(new Categoria());
+        }
+
+        model.addAttribute("producto", producto);
+        model.addAttribute("categorias", categoriaService.getCategorias(true));
+
+        return "/producto/modifica";
+    }
+
+    // ✅ Helper para recargar todo lo necesario del listado
+    private void cargarListado(Model model, Producto productoForm) {
+        var productos = productoService.getProductos(false);
+        model.addAttribute("productos", productos);
+        model.addAttribute("totalProductos", productos.size());
 
         var categorias = categoriaService.getCategorias(true);
         model.addAttribute("categorias", categorias);
 
-        return "/producto/modifica";
+        if (productoForm.getCategoria() == null) {
+            productoForm.setCategoria(new Categoria());
+        }
+        model.addAttribute("producto", productoForm);
     }
 }

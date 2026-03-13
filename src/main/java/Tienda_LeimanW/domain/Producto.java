@@ -9,6 +9,8 @@ import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
 @Entity
@@ -21,7 +23,6 @@ public class Producto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_producto")
     private Integer idProducto;
-    //private Integer idCategoria;
 
     @Column(nullable = false, length = 50)
     @NotBlank(message = "La descripción no puede estar vacía.")
@@ -44,9 +45,11 @@ public class Producto implements Serializable {
     private String rutaImagen;
 
     private boolean activo;
-    
+
     @ManyToOne
-    @JoinColumn(name ="id_categoria")
+    @JoinColumn(name = "id_categoria")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Categoria categoria;
 }
 
