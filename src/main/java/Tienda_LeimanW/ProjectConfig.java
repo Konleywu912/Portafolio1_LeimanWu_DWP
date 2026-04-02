@@ -20,6 +20,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
 public class ProjectConfig implements WebMvcConfigurer {
+    
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
