@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head th:replace="~{general/plantilla :: head}"></head>
+
+<body>
+
+    <!-- Fragmento para agregar usuario -->
+    <section th:fragment="agregar">
+
+        <!-- Botón para abrir modal -->
+        <div class="row py-4 mb-2 bg-light">
+            <div class="col-md-1"></div>
+
+            <div class="col-md-3" sec:authorize="hasRole('ROLE_ADMIN')">
+                <button type="button" class="btn btn-primary"
+                        sec:authorize="hasRole('ROLE_ADMIN')"
+                        data-bs-toggle="modal"
+                        data-bs-target="#agregarUsuarioModal">
+
+                    <i class="fa-solid fa-plus"></i>
+                    [[#{usuario.agregar}]]
+                </button>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="agregarUsuarioModal" tabindex="-1"
+             aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header bg-info text-white">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">
+                            <i class="fa-solid fa-layer-group"></i>
+                            [[#{usuario.agregar}]]
+                        </h1>
+
+                        <button type="button" class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+
+                    <!-- Formulario -->
+                    <form th:action="@{/usuario/guardar}"
+                          th:object="${usuario}"
+                          class="was-validated"
+                          enctype="multipart/form-data"
+                          method="post">
+
+                        <div class="modal-body">
+
+                            <div class="mb-3">
+                                <label>[[#{usuario.username}]]</label>
+                                <input type="text" name="username"
+                                       class="form-control"
+                                       maxlength="30" required />
+                            </div>
+
+                            <div class="mb-3">
+                                <label>[[#{usuario.password}]]</label>
+                                <input type="password" name="password"
+                                       class="form-control"
+                                       maxlength="15" required />
+                            </div>
+
+                            <div class="mb-3">
+                                <label>[[#{usuario.nombre}]]</label>
+                                <input type="text" name="nombre"
+                                       class="form-control"
+                                       maxlength="20" required />
+                            </div>
+
+                            <div class="mb-3">
+                                <label>[[#{usuario.apellidos}]]</label>
+                                <input type="text" name="apellidos"
+                                       class="form-control"
+                                       maxlength="30" required />
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">
+                                Guardar
+                            </button>
+
+                            <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">
+                                Cancelar
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+</body>
+</html>
