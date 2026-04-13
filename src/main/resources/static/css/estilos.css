@@ -1,86 +1,110 @@
 body {
-    background-color: bisque;
-    font-family: serif;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
 }
 
-header {
-    position: fixed;
-    background-color: #6666FF;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 90px;
-    padding: 10px;
+.navbar {
+    background-color: white !important;
+    border-bottom: 1px solid #ddd;
+    min-height: 55px;
 }
 
-aside {
-    position: fixed;  
-    background-color: #99FF99;
-    top: 110px;
-    left: 0;
-    width: 20%;
-    bottom: 20px;
-    padding: 10px;
-}
-section {
-    position: fixed;  
-    background-color: #dd8295;
-    top: 110px;
-    left: 20%;
-    width: 80%;
-    bottom: 20px;
-    padding: 10px;
-    overflow-y: scroll;
-}
-footer {
-    position: fixed;  
-    background-color: black;
-    color: white;    
-    left: 0;
-    width: 100%;
-    height: 20px;
-    bottom: 0;
-    text-align: center;
-}
-
-nav {
-   display: flex;
-   justify-content: space-between;
-   margin: 0 10px;
-}
-
-.logo {
-    font-size: 30px;
-    font-weight: bold;
-    font-family: cursive;
-    line-height: 90px;
-}
-
+.navbar-brand,
 .nav-link {
-    text-decoration: none;
+    color: #333 !important;
+    font-weight: 500;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+}
+
+#main-header {
+    background-color: #198754;
     color: white;
 }
 
-.nav-menu {
-    list-style: none;
+#main-header h1 {
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.nav-underline .nav-link {
+    color: #0d6efd !important;
+    font-weight: 500;
+}
+
+.nav-underline .nav-link.active {
+    color: #000 !important;
+    border-bottom: 2px solid #000;
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: none;
+}
+
+.card-header {
+    background-color: white !important;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    padding: 0.75rem;
+}
+
+.card-header h5 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.card-body {
+    padding: 0.75rem;
+}
+
+.card-text {
+    font-size: 0.95rem;
+    color: #777;
+}
+
+.card-footer {
+    background-color: white !important;
+    border-top: 1px solid #ddd;
+    padding: 0.6rem 0.75rem;
+}
+
+.card img {
+    object-fit: contain;
+}
+
+.precio-producto {
+    color: #198754;
+    font-weight: bold;
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+.badge-stock {
+    font-size: 0.72rem;
+}
+
+.btn-cart {
+    width: 34px;
+    height: 34px;
+    padding: 0;
     display: flex;
-    margin-right: 40px;
+    align-items: center;
+    justify-content: center;
 }
 
-.nav-menu-item {
-    font-size: 22px;
-    margin: 0 10px;
-    line-height: 90px;
-}
-
-.menu-item {
-    padding: 5px;
-    background-color: green;
-    border-radius: 10px;
-}
-
-.menu-item:hover {
-    background-color: black;
+footer {
+    text-align: center;
 }
 
 
